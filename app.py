@@ -10,7 +10,7 @@ client = bigquery.Client()
 @app.route('/persona', methods=['POST'])
 def save_persona():
     data = request.json
-    table_id = "your-project-id.your-dataset.persona_table"
+    table_id = "project-web-dev-416401.ds_company.tbl_persona"
 
     # Ensure data contains all required fields
     if not all(key in data for key in ('doc_identidad', 'nombre', 'apellido')):
