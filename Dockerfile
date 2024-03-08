@@ -1,11 +1,20 @@
-FROM python:3.9-slim
+# Use an official Python runtime as a parent image
+FROM python:3.8-slim
 
-ENV PYTHONUNBUFFERED True
+# Set the working directory in the container
+WORKDIR /app
 
-ENV APP_HOME /app
-WORKDIR $APP_HOME
-COPY . ./
+# Copy the current directory contents into the container at /app
+COPY . .
 
-RUN pip install Flask gunicorn google-cloud-bigquery
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app
+# Make port 8080 available to the world outside this container
+EXPOSE 8080
+
+# Define environment variable
+ENV PORT 8080
+
+# Run app.py when the container launches
+CMD ["python", "app.py"]
